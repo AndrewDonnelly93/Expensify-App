@@ -2,22 +2,22 @@ import { createStore } from 'redux';
 
 // Action generators - functions that return action objects
 const incrementCount = ({ incrementBy = 1 } = {}) => ({
-    type: 'INCREMENT',
-    incrementBy
+  type: 'INCREMENT',
+  incrementBy,
 });
 
 const decrementCount = ({ decrementBy = 1 } = {}) => ({
-    type: 'DECREMENT',
-    decrementBy
+  type: 'DECREMENT',
+  decrementBy,
 });
 
 const setCount = ({ count = 0 } = {}) => ({
-    type: 'SET',
-    count
+  type: 'SET',
+  count,
 });
 
 const resetCount = () => ({
-    type: 'RESET'
+  type: 'RESET',
 });
 
 
@@ -27,25 +27,26 @@ const resetCount = () => ({
 // 2. Never change state or action
 
 const countReducer = (state = { count: 0 }, action) => {
-    console.log('running');
-    switch (action.type) {
-        case 'INCREMENT':
-            return { count: state.count + action.incrementBy };
-        case 'DECREMENT':
-            return { count: state.count - action.decrementBy };
-        case 'SET':
-            return { count: action.count };
-        case 'RESET':
-            return { count: 0 };
-        default:
-            return state;
-    }
+  console.log('running');
+  switch (action.type) {
+    case 'INCREMENT':
+      return { count: state.count + action.incrementBy };
+    case 'DECREMENT':
+      return { count: state.count - action.decrementBy };
+    case 'SET':
+      return { count: action.count };
+    case 'RESET':
+      return { count: 0 };
+    default:
+      return state;
+  }
 };
 
 const store = createStore(countReducer);
 
+// eslint-disable-next-line no-unused-vars
 const unsubscribe = store.subscribe(() => {
-    console.log(store.getState());
+  console.log(store.getState());
 });
 
 // Action - an object that gets sent to the store
