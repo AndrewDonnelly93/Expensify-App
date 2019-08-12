@@ -1,1 +1,8 @@
 language: javascript
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: 81d0be8de533136437ceabda54fa632b6428682c
+  keep_history: true
+  on:
+    branch: master
