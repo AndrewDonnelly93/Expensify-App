@@ -6,39 +6,61 @@
 // Abstract state
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 const Info = (props) => {
-    return (
-        <div>
-            <h1>Info</h1>
-            <p>The info is: {props.info}</p>
-        </div>
-    );
+  const { info } = props;
+  return (
+    <div>
+      <h1>Info</h1>
+      <p>The info is: {info}</p>
+    </div>
+  );
 };
 
-const withAdminWarning = (WrappedComponent) => {
-    return (props) => (
-        <div>
-            {props.isAdmin && <p>This is private info. Please don't share!</p>}
-            <WrappedComponent {...props}/>
-        </div>
-    )
+Info.propTypes = {
+  info: PropTypes.string
 };
 
-const requireAuthentication = (WrappedComponent) => {
-    return (props) => (
-        <div>
-            {
-                props.isAuthenticated ?
-                    <WrappedComponent {...props}/> :
-                    <p>Please log in!</p>
-            }
-        </div>
-    );
+// eslint-disable-next-line no-unused-vars
+const withAdminWarning = (WrappedComponent) => (props) => {
+  // eslint-disable-next-line react/prop-types
+  const { isAdmin } = props;
+  return (
+    <div>
+      {isAdmin && <p>This is private info. Please don\'t share!</p>}
+      <WrappedComponent {...props} />
+    </div>
+  );
 };
 
-const AdminInfo = withAdminWarning(Info);
+withAdminWarning.propTypes = {
+  info: PropTypes.string
+};
+
+const requireAuthentication = (WrappedComponent) => (props) => {
+  // eslint-disable-next-line react/prop-types
+  const { isAuthenticated } = props;
+  return (
+    <div>
+      {
+        isAuthenticated
+          ? <WrappedComponent {...props} />
+          : <p>Please log in!</p>
+      }
+    </div>
+  );
+};
+
+requireAuthentication.propTypes = {
+  WrappedComponent: PropTypes.object,
+  isAuthenticated: PropTypes.bool
+};
+
+// const AdminInfo = withAdminWarning(Info);
 const AuthInfo = requireAuthentication(Info);
 
-//ReactDOM.render(<AdminInfo isAdmin info="There are the details"/>, document.getElementById('app'));
-ReactDOM.render(<AuthInfo isAuthenticated={true} info='There are the details'/>, document.getElementById('app'));
+// ReactDOM.render(<AdminInfo isAdmin info="There are the details"/>,
+// document.getElementById('app'));
+ReactDOM.render(<AuthInfo isAuthenticated info="There are the details" />,
+  document.getElementById('app'));
