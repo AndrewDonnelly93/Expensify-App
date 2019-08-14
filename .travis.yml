@@ -1,8 +1,8 @@
 language: javascript
-cache: yarn
-install: yarn
+cache: npm
+install: npm
 
-script: yarn test
+script: npm test
 deploy:
   provider: pages
   skip_cleanup: true
