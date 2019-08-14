@@ -1,6 +1,6 @@
 language: javascript
 cache: npm
-install: npm
+install: npm install
 
 script: npm test
 deploy:
