@@ -1,4 +1,8 @@
 language: javascript
+cache: npm
+install: npm install
+
+script: npm test
 deploy:
   provider: pages
   skip_cleanup: true
@@ -6,4 +10,3 @@ deploy:
   keep_history: true
   on:
     branch: master
-script: ant build
