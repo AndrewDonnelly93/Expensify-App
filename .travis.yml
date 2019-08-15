@@ -1,12 +1,16 @@
-language: javascript
-cache: npm
+language: node_js
+node_js:
+  - 8
+cache:
+  directories:
+    - node_modules
 install: npm install
 
 script: npm test
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: 81d0be8de533136437ceabda54fa632b6428682c
+  github_token: $GITHUB_TOKEN
   keep_history: true
   on:
     branch: master
